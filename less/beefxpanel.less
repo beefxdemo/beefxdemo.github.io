@@ -1,0 +1,226 @@
+// out: ../css/beefxpanel.css, sourcemap: false
+/* stylelint-disable indentation, no-eol-whitespace,
+   selector-combinator-space-before,
+   selector-list-comma-newline-after, rule-empty-line-before, max-empty-lines,
+   declaration-block-semicolon-newline-after,  declaration-empty-line-before,
+   declaration-block-single-line-max-declarations,
+   declaration-colon-newline-after,
+   comment-empty-line-before, comment-whitespace-inside,
+   block-closing-brace-newline-after, block-closing-brace-newline-before,
+   block-opening-brace-newline-after,
+   block-closing-brace-space-before, block-opening-brace-space-after,
+   custom-property-empty-line-before, no-descending-specificity, no-duplicate-selectors,
+   number-leading-zero, number-no-trailing-zeros, length-zero-no-unit, 
+   color-hex-length, color-hex-case,
+   declaration-block-no-duplicate-properties,
+   declaration-block-no-duplicate-property-overrides,
+   declaration-block-no-shorthand-property-overrides,
+   selector-type-no-unknown,
+   string-no-newline, block-no-empty,
+   function-parentheses-newline-inside, function-comma-newline-after,
+   font-family-no-missing-generic-family-keyword
+*/    
+
+@charset "UTF-8";
+
+@import "./beefx-common";
+
+//8#927 ------ cmd buttons VERY general ------
+
+.bee-cmd {.cmdBase(); margin: 2px .5px; padding: 1px 2px 0; 
+  &[state="off"] {}
+  &[state="off"]:hover,
+  &[state="on"] {.csh(#eee, 65%); .bg(@B75);}
+  &[state="active"] {.csh(#ffa, 80%);.bg(@B75);}
+  &[state="alert"] {.csh(#fa0, 65%);.bg(@B75);}
+  &[disabled] {.noMouse();}
+}
+.bee-frame {.mitemBase(); .inBlk(); margin: 2px .5px; padding: 1px 2px 0; }
+.bee-box {.mitemBase(); .inBlk(); margin: 2px .5px; padding: 1px 2px 0; .bg(@B5);
+  &[state=def] {.csh(#8df, 60%);.bg(#037);}
+  &[state=set] {.csh(#0f0, 65%);.bg(#050);}
+  &[state=err] {.csh(#e00, 80%);.bg(#900);}
+  &[state=mod] {.csh(#f90, 70%);.bg(#600);}
+  &[state=label] {.cb(@W, @T); .textShade(@B5); border-color: @B5;}
+}
+.bee-box, .bee-cmd {
+  &.emoji {padding-top: 0; padding-bottom: 0; height: 15.5px;}
+  &.nobord {border: none; box-shadow: none;}
+  &.liteled .led-fx {--ledlite: ~"hsl(var(--ledhue, 120), 80%, 90%)";}
+  &.wled .led-fx {.absRT(0px, -1px); left: unset; --ledhue: 100; 
+    &::before {.bsh0(2px, 1px, @B3);}}
+    
+  &.wled[ledstate="ledon"] .led-fx {filter: none;}
+  &.wled:not([ledstate="ledon"]) .led-fx {filter: saturate(0) opacity(.5);}
+
+  //&.active {.cb(#eee, #555); .bg(red);} // no such thing
+  &.wled {padding-right: 16px; 
+    &.send .led-fx {--ledhue: 50;} //csak end
+    &.listen .led-fx {--ledhue: 0;} // csak end
+    .led-fx {.absRT(1px, -1px); left: unset;/* --pulseperiod: .5s; */
+      &::before {.bsh0(2px, 1px, @B3);}}}
+}
+.bee-box.wled .led-fx {.absRT(2px, -2px);
+  //--ledlite: ~"hsl(var(--ledhue, 120), 80%, 90%)";
+}
+
+body:not(.invertcmd) {
+  .bee-cmd {.cb(@B75, @W25); .textShade(@B2); 
+    box-shadow: 1px 1px 1px 0px @B5; border: 1px solid @W25;
+    &[state="off"]:hover,
+    &[state="on"] {.csh(@B75, 35%); .bg(@W65);}
+    &[state="active"] {.csh(@B, 40%);.bg(@W);}
+    &[state="alert"] {.csh(#c00, 55%);.bg(#ff8);}
+  }
+}
+
+//8#70f ---- Stage fx panels (general bfx-rama, in any stage) NO STAGE! -------  
+
+.bfx-rama {.relLT(0,0); width: 248px; margin: 3px 1px; padding: 2px; .bora(8px);
+  color: @W; .font(14px,400); box-shadow: inset 1px 1px 1px 0 @W5;
+  &:hover::before {.fixRB(84px, 4px); .font(16px, 700); content: attr(pepper); 
+    color: @W8; text-shadow: 0 0 6px @B, 0 0 3px @B;}
+  
+  //.bfx-rama.isRemoveable
+  .bfx-foldicon {.absRT(20px, 2px); .hand(); .font(12px, 400);}
+  .bfx-foldicon::after {content: '➖';}
+  &.isFolded .bfx-foldicon::after {content: '➕';}
+  // then bfx rama->
+  //&.folded {height: 18px; overflow: hidden;} 
+  &.isFolded .fxr-parval:not(.fxt-info):not(.fxt-cmd):not(.fxt-box):not(.fxt-piano) {.hide();}  // keep graph/cmd/html when folded
+  //&.isFoldable 
+  .selektor.sel-selfx {margin-right: 36px;}
+  //&.isBlank .selektor.sel-selfx {margin-right: 36px;}
+  
+  //.bfx-rama.isRemoveable
+  .bfx-delete {.absRT(2px, 2px); .hand(); .font(12px, 400);}
+  .bfx-delete::before {content: '❌'; filter: saturate(.5);}
+  
+  //.bfx-rama.isOnOff
+  .bfxact.led-fx {.absLT(0px, 1px); .bora(50%); --ledhue: 120; .hand();}
+  .bfxact::before {.bsh0(4px, 1px, @B);}
+  // then bfx rama->  
+  &.bypass {filter: saturate(.2) brightness(.8); 
+    .bfxact.led-fx {--ledhue: 200;} 
+    &::before {content: none;} // because filter fucks up fixed positioning
+  }    
+  &.isBlank {height:18px;}
+  &.isFixed.isGain {height: 23px; margin-top: 2px; padding-bottom: 0;
+    .bfxact.led-fx {top: 3px;} }
+  // &.isFixed.isEndRatio {padding: 5px 2px 3px; margin-bottom: 2px; .ibsh0(10px, 1px, @B);
+  //  .bfxact.led-fx {left: 1px;top: 4px;}}
+  &.hasStageMark::after {.absLT(24px, -2px); content: var(--stage);
+    .font(24px, 700);  .ita(); color: @W75; text-shadow: 1px 1px 0px @B2;}
+       
+  .fx-dragger {.absRB(0,0); .wihi(12px); cursor: move; 
+    &:hover {.bg(@B5);}}
+}
+@biqx: 240px;
+@biqy: 120px;
+.fxr-pars {.txtCent(); 
+  .fxr-parval {.txtLeft();
+  &.fxt-cmd, &.fxt-box {.relLT(0, -1px);.inBlk(); .txtCent();}
+  .html, .info {.relLT(6px, 0); width: 223px; padding: 3px 6px; margin-bottom: 4px;
+    .bora(6px); word-break: break-word; .bg(@B15); border: 1px dotted @W;.font(11px, 400);
+    em { &::before {content: '◽️'; font-style: normal; }}
+  }}
+  .graph-canvas {.relLT(0, 0); .blk(); .wihi(@biqx, @biqy); .bora(6px); .bg(@B);
+    margin: 2px 0 4px 4px; padding: 0 0 0 0; box-shadow: inset -1px -1px 1px 0px @W8;
+    //&:hover {.wihi(600px, 300px);}
+    &.gr-scope {.bg(hsl(210, 100%, 6%));}
+  }
+}
+//8#79e---- Mid/effect stage bottom (ratio w menu, spectrum) -------
+.bfx-stage .st-bottomframe {.absLB(0, 3px); 
+  .isEndRatio {.relLT(0, 0); padding: 5px 2px 3px; margin-bottom: 2px; 
+    box-shadow: inset 0 0 10px 1px black;
+    .fxr-pars .fxt-cmd {.relLT(4px, 0);} // {padding-left: 0px; margin-left: 0px;}
+    .bfxact.led-fx {left: 0px;top: 4px;}}
+  .st-spectrum {.relLT(0, 0); .bora(6px); padding: 2px 2px 0;
+    .bg(linear-gradient(150deg, @W5, @B5));
+    canvas {.relLT(0,0); .wihi(250px, 120px); .bora(6px); .bg(@B);}}
+}
+// //8#c58---- Narrow and player stage overrides (no text or on other positions) -------
+// 
+// .stage-narrowframe .bfx-stage {padding: 0; // override stage controls
+//   .bfx-rama {//min-width: unset;
+//     .beectrl { padding: 4px 8px; margin: 13px 0 0;
+//       &::before {right: unset; left: 8px; top: -12px;}
+//       &::after {left: unset; right: 8px; top: -12px;}
+// }}}
+// .player-stframe .bfx-stage { padding-bottom: 0;}
+
+//8#66f---- Topmenu used in endStage ramas, but it's universal -------
+//ezt az egeszet ki kell irtani:
+//.bfx-topmenu {.relLT(-1px, 0); .txtRight(); padding-right: 2px; margin-left: 18px;}
+//.bfx-mitem, // specbeetmp vagy barmi az alsonak? bee-cmd.enstage ?
+
+//8#4bf ----- beectrl (input controls) -----
+@beeyell: hsl(54, 100%, 50%);
+@beename: @W;
+@beeval: @beeyell;
+@beebrown: hsl(30, 84%, 36%);
+
+.beectrl {.rel(); margin-left: 80px;}
+.beectrl::before, 
+.beectrl::after {.font(13px, 300); .textShade(currentColor); .txtcut();}
+.beectrl::before {.absRT(100%, 2px); margin-right: 4px; color: @beename; .textShade(@W5);
+  content: attr(name) ':'; max-width: 80px; }
+.beectrl::after {.absLT(100%, 3px); margin-left: 5px; color: @beeval; content: attr(val);}
+
+.selektor {padding: 0 0 4px 0; 
+  select {.bg(@W5); max-width: 132px; font-size: 12px;}
+  option { .cb(@W, #444); font-size: 12px;}
+}
+//8#c8f ----- selektor -----
+.selektor.sel-selfx { margin-left: 16px; margin-right: 18px; 
+  &::before {content: none;}
+  select {.rel(); width: 100%; .txtRight(); max-width: unset; font-size: 13px;
+    color: @W; text-shadow: 0 0 1px @B, 1px 1px 3px @B, 2px 2px 6px @B;
+    .bg(linear-gradient(135deg, @T 30%, @B15));
+    border: none; border-radius: 6px 6px 4px 5px;
+  }
+}
+[fxname="Blank"] .selektor {margin-right: 3px;}
+//8#cc0 ----- ranger -----
+.ranger {--mari: 38px; margin-right: var(--mari);}  
+.ranger::after { max-width: var(--mari);}
+input[type=range] {.wihi(100%, 20px); margin: 0; .bg(@T); .noUA(); .roco(); .font(11px, 300);
+  &::-webkit-slider-thumb {.wihi(10px, 20px); .bora(5px); .hand(); margin-top: -9px;
+    .bg(@beeyell); box-shadow: 1px 1px 2px 0px @B; border: 1px solid @B; .noUA();}
+  &::-webkit-slider-runnable-track {.wihi(100%, 4px); .hand(); .bora(2px); z-index: 1;
+    box-shadow: 1px 1px 1px @B5; .bg(@B5); border: 1px solid @B5;}
+  &:focus {outline: none;}
+  &:focus::-webkit-slider-runnable-track {.bg(@beebrown);}
+  &[disabled] {filter: saturate(0);}
+  &[color]::-webkit-slider-thumb {.bg(~"hsl(var(--color), 75%, 50%)");}
+  &::before {.absRT(1px,-4px); color: @W; content: attr(unit);}
+  &::after {.absLT(1px, -3px); .csh(#ffc, 90%); content: attr(midified);}
+}
+//8#8c0 ----- checker -----
+.checker input[type=checkbox] {.noUA(); .relLT(0, 0); .wihi(12px); .bora(50%); .hand();
+  outline: none; .bsh0(); .bg(@W25);
+  &[checked] {.bg(@beeyell);}}
+  
+.piano-kb {.relLT(2px,0); .wihi(100%, 80px); margin: 3px 0;
+  .key {.txtCent(); .inBlk(); .hand(); z-index: 1; .boraTB(0, 4px); .font(12px, 400);
+    &::before{.absLT(0, 0); width: 100%; padding: 2px 0; .txtCent(); content: attr(disp);}}
+  .key.act::before {background: radial-gradient(fade(#faa, 70%) 40%, @T 70%);}
+  .whites {.abs(); .wihi(100%);
+    .key {.rel(); .wihi(6.6%, 100%); .cb(@B5, @W); .vTop(bottom); 
+      box-shadow: inset 0 0 1px .5px currentColor; 
+      &::before {top: unset; bottom: 0;}
+      &:hover {filter: brightness(.9);}
+      &[note="Cm"] {.bg(hsl(50,100%,96%));}}
+  }
+  .blacks {.abs(); .wihi(100%);
+    .key {.relLT(3.3%, 0); .wihi(5.6%, 60%); .cb(@W, @B); .vTop(); 
+      //box-shadow: 0 -1px 2px 1px @W75;
+      margin: 0 .5%; background: linear-gradient(157deg, #bbb, @B);}
+    .key::before {.ita();}  
+    .key:hover {filter: brightness(1.3);}
+    .key[disp="."] {opacity: 0; .noMouse();}  
+  }
+}
+  
+

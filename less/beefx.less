@@ -1,0 +1,386 @@
+// out: ../css/beefx.css, sourcemap: false
+/* stylelint-disable indentation, no-eol-whitespace,
+   selector-combinator-space-before,
+   selector-list-comma-newline-after, rule-empty-line-before, max-empty-lines,
+   declaration-block-semicolon-newline-after,  declaration-empty-line-before,
+   declaration-block-single-line-max-declarations,
+   declaration-colon-newline-after,
+   comment-empty-line-before, comment-whitespace-inside,
+   block-closing-brace-newline-after, block-closing-brace-newline-before,
+   block-opening-brace-newline-after,
+   block-closing-brace-space-before, block-opening-brace-space-after,
+   custom-property-empty-line-before, no-descending-specificity, no-duplicate-selectors,
+   number-leading-zero, number-no-trailing-zeros, length-zero-no-unit, 
+   color-hex-length, color-hex-case,
+   declaration-block-no-duplicate-properties,
+   declaration-block-no-duplicate-property-overrides,
+   declaration-block-no-shorthand-property-overrides,
+   selector-type-no-unknown,
+   string-no-newline, block-no-empty,
+   function-parentheses-newline-inside, function-comma-newline-after,
+   font-family-no-missing-generic-family-keyword
+*/    
+
+@charset "UTF-8";
+
+//@import "../res/esm/stdlib/less/lessentials";
+@import "./beefx-common";
+@import '../css/beefxpanel.css';
+
+body {.bg(#777); .roco(); margin: 0;}
+body::after {.absRB(10px); .font(24px, 700); .ita(); color: #fbb; content: attr(error);}
+
+//8#b00------ Click for Web Audio API overlay ------
+.clicker {.fixLT(0); .wihi(100%); z-index: 9; .bg(fade(#B00, 50%)); .backBlur(3px);
+  &::before {.absLB(0px, 50px); width: 100%; color: #cc0; /*.roco();*/ 
+    .font(24px, 700); .ita(); .txtCent(); content: 'Click any key to start Web Audio API!';}
+}
+//8#49c------  Preset menu bottom right ------
+@previewWidth: 500px;
+.preset-menu {.fixRB(0); z-index: 9999; max-width: @previewWidth; .txtCent(); 
+  .bg(hsla(0,0%,40%,.6)); transition: transform .1s 0s; border-radius: 8px 0 0 0;
+  &::before {.absRB(0, 100%); padding: 4px; .boraTB(6px, 0); text-shadow: 0 0 0 @B;
+    color: @B; background: linear-gradient(to bottom, @W75, @G7, fade(@G4, 60%));
+    content: 'Change preset' var(--reload, '');}
+  &.hidden:not(:hover) {transform: translateY(100%); transition: transform .5s 4s;}
+  .preset-item { .cmdBase(); .bg(hsla(0,0%,50%,.6));
+    .preset-preview {.hide(); .fixRB(@previewWidth + 10px, 2px); .cb(@W, @B75);
+      padding: 6px; .bora(8px); .txtLeft();}
+    &:hover .preset-preview {.blk();}
+  }
+}
+//8#9c6 ---- Thumbnail matrix (youtube thumb emu) -------
+.emu-frame {.absLB(0); z-index: 99;}
+.beetrigger ~ .beebody .emu-frame {bottom: 100%;} // on youtube
+#thumbnail.emulated {.rel();.wihi(120px, 66px); .inBlk();  .vTop(); // one thumb
+  border: 1px solid @B5; background-size: 100%;
+  &.au {.cb(@W, @B8);}
+  .thtitle {.abs(); padding: 6px; box-sizing: border-box; margin: 1px; .textShade(@B);
+    .font(13px, 400); line-height: 1; .txtCent();
+    em {.nita(); color: yellow;}}
+}
+.thumb-head, .thumb-upload {.rel(); .inBlk(); .vTop(); .cb(@W, @B75); border: 1px solid @B5;}
+.thumb-head {.wihi(84px, 66px); padding: 0 3px; .txtCent(); .bee-cmd {font-size: 18px;}}
+.thumb-upload {.wihi(150px, 66px); .font(10px, 400);
+  .ss {.blk(); .wihi(200px, 22px); transform: scale(.7); .tori(0, 0);}
+  .s1 {.absLT(4px,0);}
+  .s2 {.absLT(4px,25%);}
+  .s3 {.absLT(4px,50%);}
+  .s4 {.absLT(4px,75%);}
+}
+//8#6c6 ---- Grab overlay on video thumbs -------
+.bfx-grab-frame {.abs(); .wihi(100%); .hand(); z-index: 1;
+  box-shadow: 0 0 6px 1px #c00, inset 0 0 4px 2px #ff8;
+  .grabber {.wihi(45%); padding: 0; border: 1px solid @W25;
+    .font(24px, 700); color: @T; .txtCent(); user-select: none;
+    div {.relLT(0, 50%); transform: translatey(-50%); .noMouse();}}
+    &:hover .grabber {color: @W;}
+    .grabber:hover {.bg(@B5);}
+    .grab-to-1 {.absLT(0);}
+    .grab-to-2 {.absRT(0);}
+    .grab-to-3 {.absLB(0);}
+    .grab-to-4 {.absRB(0);}
+  }
+//8#4ab------ Sourcelist right mid / Stagelist left mid ------
+.itemBase(){.cb(@W, @B5); padding: 1px 2px; border: 1px solid @W5; margin: 1px;}
+.side-frame {z-index: 9999; --hue: 0; .font(14px, 400); padding: 2px;
+  .bg(~"hsla(var(--hue), 20%, 30%, .8)"); transition: transform .1s 0s;
+  &.hidden:not(:hover) {transition: transform .5s 4s;}
+  &::before {padding: 2px 4px 8px; .boraTB(6px, 0); content: '??'; height: 10px;
+    color: #fff; background: linear-gradient(to bottom, ~"hsl(var(--hue), 50%, 50%)", #888);}
+  .item {.itemBase(); .bg(hsla(0,0%,50%,.6)); em {.nita(); .blk();}}
+  &.side-left {.fixLT(0, unset); .boraLR(0, 8px);
+    &.hidden:not(:hover) {transform: translateX(-100%);}
+    &::before {.absLT(~"calc(100% + 10px)", -8px); transform: rotate(90deg); .tori(0%, 50%);}}
+  &.side-right {.fixRT(0, unset); .boraLR(8px, 0);
+    &.hidden:not(:hover) {transform: translateX(100%);}
+    &::before {.absRT(~"calc(100% + 10px)", -8px); transform: rotate(-90deg); .tori(100%, 50%);}}
+}
+.side-frame.sourcelist-frame { --hue: 0; top: 40%;
+  &::before {content: 'Sources';}
+}
+.side-frame.stagelist-frame {--hue: 200; top: 60%;
+  &::before {content: 'Stages';}
+}
+//8#4ab------Fx Factory ------
+.factory-frame {.fixRT(0); z-index: 9999; .font(14px, 400); padding: 2px 4px 2px 2px; .bora(8px);
+  transform: translatey(~"calc(50vh - 50%)");
+  .itemBase(){.cb(@W, @B5); padding: 1px 2px; border: 1px solid @W5; margin: 1px;}
+  .bg(hsla(220, 50%, 30%, .5)); .backBlur(2px);
+  .factory-inner{.minmaxwi(200px, 230px); .txtRight(); --hue: 0;}
+  .fact-fxcat {.rel();}
+  .fact-catname {.relLT(-2px, 0); width: fit-content; padding: 2px 4px; .boraLR(0, 6px);
+    .font(16px, 700); .ita(); .cb(~"hsl(var(--hue), 80%, 94%)", @B5);.txtLeft();
+    margin-top: -14px; margin-bottom: -1px;
+    &.half {}}
+  .fact-fx {.rel(); .inBlk(); .itemBase(); cursor: move; .bora(6px); z-index: 1;
+    .cb(@W, ~"hsla(var(--hue), 60%, 50%, .5)");
+    &.fade {color: @W5;}
+    em {.hide();color: #aaa; .font(12px, 400);}}
+
+  //.item {.itemBase(); .bg(hsla(0,0%,50%,.6)); em {.nita(); .blk();}}
+}
+//8#666 =======================----Main body parts ----==========================
+//8#cb0------ Bee-stripes in body background ------
+.beeBg(){ @y1: hsl(45, 100%, 40%); @y2: hsl(60, 100%, 40%);
+  background-blend-mode: color-burn; background: 
+    repeating-linear-gradient(45deg, @B, @y1 3px, @y2 9px, @B 12px),
+    radial-gradient(at 80% 80%, @B9 0%, @B85 10%, @B5 50%, @T 80%);}
+    
+.beebody {.fix(); .wihi(100%); .bg(#666); z-index: 9999; .beeBg();}
+
+//8#b35youtube extension overrides
+
+.beetrigger {.fixLB(0,0); z-index: 9999; padding: 12px 6px; border-radius: 40% 90% 50% 0;
+  box-shadow: 2px 0 3px 1px @B, 1px -2px 6px 2px @B; filter: saturate(0);
+  .hand(); .cb(#ffe000, @B5); .beeBg(); .roco(); .font(14px, 400); .textShade(@B);
+  &.hasvideo {filter: none;}
+  &:hover {.tori(10%, 90%); transform: scale(5); transition: transform 1s 0s ease-out;}}
+
+.beebody.u2:not(.nu2) {.bg(@B25); .boraTB(8px, 0); 
+  bottom: 0; top: unset; .wihi(auto, auto); z-index: 999999;
+  &::before {.xerox(); .backBlur(2px); z-index: -1;}}
+//.beebody.u2 .bfx-top {.hide();}
+
+//8#c90------ Top frame ------
+// Gone for good. (I mean temporarily.)
+
+//8#d83------------------ Mid frame (eveything) -----------------
+.bfx-bigmid {.rel(); margin: auto; width: fit-content;}
+.beebody:not(.u2) .bfx-bigmid.factoryon {margin-left: 4px;}
+
+//8#9c8 ---- Hor menubars at top -------
+.bfx-horbar {.relLT(0,0); padding: 2px 4px; .bora(6px);
+   .bg(@B5); box-shadow: inset 0 0 6px 2px @B75;
+  .mitem {.cmdBase(); .font(13px, 400); padding: 1px 3px;
+    border-color: @W5; box-shadow: 0 0 5px .5px @W5;
+    &.act {.bg(hsla(240, 75%, 40%, .25));}
+  }
+  .mframe {.mitemBase(); .cb(@W9, @B5);}
+  .mlabel {.labelBase(); .font(13px, 400); border-color: @T;}
+  .minput {margin: 3px 0 0;padding: 2px 1px 0px 2px; outline: none; border: none;
+    .cb(@W, @W25); .font(13px, 400); }
+  .rt {float: right;}
+  &::before {.xerox(); .backBlur(2px); z-index: -1;}
+}
+//8#c00 hormenu customization
+.bfx-mainmenu {.bg(hsl(0,0%,30%)); padding: 4px; .bora(6px);}
+.bfx-auxmenu {.bg(hsl(0,0%,40%));}
+.bfx-projmenu {.bg(hsl(0,0%,45%)); padding: 0px 4px; .ibsh0(3px, .5px, @B5);}
+.bfx-mixermenu {.bg(hsl(0,0%,40%));}
+.bfx-bpmmenu {.bg(@B75); .mitem {.bg(@W2);}}
+
+//8#bbb ---- not used atm
+.bfx-bpmbar {}
+.bfx-syncbar {}
+.mbar {.rel(); .inBlk(); .vTop();}
+
+//8#a4a ----All strips common-------
+.bfx-bigmid > .strip {.rel();}
+
+//8#76b ---- Stage preset slot matrix strip -------
+.state-stageslots-frame {z-index: 199; .bg(@B5); padding: 4px; .bora(8px); .txtCent();
+  .backBlur(2px); 
+  .st-stageslots-inframe {.txtLeft();}}
+.st-stageslot {.rel();.wihi(168px, auto); min-height: 24px; .inBlk(); .vTop(); cursor: move;
+  .cb(@W, fade(#888, 80%)); padding: 5px 14px 5px 5px; margin: 0; .textShade(@B);
+  .ibsh0(3px, 1px, @B75); .font(12px, 400); line-height: 1; .bora(8px);
+  em {.absRT(0px, 0px); .inBlk(); .wihi(16px, 12px); .nita(); .font(13px, 700); padding: 2px 0px;  margin-right: 2px; .txtCent(); .bora(50%); .cb(#ff8, @W4);}
+  &.dragover {.ibsh0(6px, 2px, red);}
+}
+//8#794 ---- Projects matrix strip -------
+.state-projlist-frame {z-index: 199; .bg(@B5); padding: 4px; .bora(8px); .txtCent();
+  .backBlur(2px); 
+  .st-projlist-inframe {.txtLeft();}}
+.st-proj {.rel();.wihi(168px, auto); min-height: 24px; .inBlk(); .vTop(); .hand();
+  .cb(@W, fade(#888, 80%)); padding: 5px 14px 5px 5px; margin: 0; .textShade(@B);
+  .ibsh0(3px, 1px, @B75); .font(13px, 400); .bora(8px);
+  strong {color: #ff8;}
+}
+//8#888 --- very much not here should they be ---
+.dragover {.ibsh0(6px, 2px, red);}
+.dragged {.bg(yellow);}
+//.dragover {.bg(red);}
+
+.rx-root:hover {box-shadow: 0 0 16px 8px #7de1ff !important;}
+
+//8#b96 ----Source (media/audiobuffer) strip-------
+.source-strip { .txtCent(); // also it's a horbar
+  .synctools-frame.source-frame {.bg(@W5); width: 100px; min-height: 70px; padding: 4px;
+    .bee-cmd {.blk();}
+  }
+  .source-frame {.relLT(0,2px); .inBlk(); margin: 1px; .vTop(bottom);
+    min-height: 20px; .minmaxwi(28px, 254px); .bora(8px); .bsh0(5px, 1px, @B5);
+    
+    &[type] {width: 254px; min-height: 70px;}
+    &:not([type]) {&[ix="6"], &[ix="6"], &[ix="7"], &[ix="8"] {.hide();} }
+
+    &::before {.absLT(0,0); .wihi(100%, 100%); .font(20px, 700); color: yellow;  .noMouse();
+      .bora(8px); .txtLeft();
+      box-shadow: inset 0px 2px 3px 0px yellow;
+      content: '\00a0\00a0' attr(ix); z-index: 1; line-height: 0; .textShade(@B);}
+
+    &[info]::after{.absRT(6px, -8px); .font(18px, 700); line-height: 1; .bora(4px); z-index: 1;
+      padding: 2px 4px 0; .cb(@B, #ff8); content: attr(info);}
+       
+    .src-info {.absLT(1px,0); right: 1px; margin-top: 15px; padding: 4px 2px; z-index: 1;
+      .ibsh0(3px, 1px, red); .cb(@W, @B5); .backBlur(1px); .hide();}
+    .src-media {.relLT(0,0); .minmaxhi(10px, 140px); width: 100%; overflow: hidden;
+      .masterthumb {.wihi(320px, 180px); background-size: 100%; background-repeat: no-repeat;}
+      .masterthumb, iframe {.bora(8px); transform: scale(.79); .tori(0,0);}
+      video {}
+      audio {.absLB(0); width: 320px; opacity: .2;
+        .tori(-10%, 100%); transform: scale(.83) translateY(8px);}
+    }
+    &[type=audio] .src-media {height: 100px;  //STEMS
+      background-size: 100%; background-repeat: no-repeat; background-position-y: 13.5px;}
+    &[type=mock] iframe {.noMouse();}
+    &[type=audio] .src-info, 
+    &:hover .src-info {.blk();}
+    &[type] .src-ctrl {height: 90px; margin-top: -53px; .bg(@B5); &:hover {.backBlur(2px);}}
+    .src-ctrl {.relLT(0,0);margin-top: -33px;
+      & > div {.rel(); padding: 1px 0 1px 0; z-index: 1;}
+      .loopbar {.txtLeft();}
+      .navbar {}
+      .ctrlbar {.rel(); .wihi(100%, 22px);}
+      .bee-cmd {.cb(@W8, @B1); border: 1px solid @W5;}
+      .bee-cmd.cc-play {.cb(@W8, fade(#f88, 40%)); filter: hue-rotate(120deg) saturate(2);}
+      .bee-cmd.cc-stop {.cb(@W8, fade(#f88, 40%)); filter: hue-rotate(220deg) saturate(2);}
+      .bee-cmd.cc-mute {.cb(@W8, fade(#f88, 40%)); filter: hue-rotate(0deg) saturate(2);}
+      .bee-cmd.cc-flood {.cb(@W8, fade(#f90, 40%)); filter: hue-rotate(0deg) saturate(2);}
+      .bee-cmd.n-loop[loopon="true"] {.bg(#800);}
+      .bee-cmd[state=on] {.csh(@W, 75%);}
+      .bee-cmd.bpm1 {--b1: #f94;}
+      .bee-cmd.bpm2 {--b1: #e44;} 
+      @keyframes bpm-flicker {from {color: var(--c1);} to {color: var(--c2);}}          
+      @keyframes bpmc-flicker {from {.bgc(var(--b1));} to {.bgc(var(--b2));}}          
+      .bee-cmd.bpm-cmd { text-shadow: 0 0 3px currentColor; --c1: @W75; --c2: @W25;
+        //animation: bpm-flicker var(--bt, 1s) infinite alternate cubic-bezier(1, 0, 0, 1);
+      }
+      .bee-cmd.bpm-cmd[state=calc] {.noMouse(); --b2: @B;
+        animation: bpmc-flicker var(--bt, .25s) infinite alternate ease-in-out;}
+      .bee-cmd.bpm-cmd[state=done] {.bg(var(--b1)); --c1: @T; --c2: @B; opacity: .8;}
+      .nav-drag {.rel();.wihi(100%, 30px); .bora(8px); overflow: hidden;
+        .bgc(@W25); background-size: cover;
+        .drag-bar {.absLT(2px,10px); right: 2px; height:10px; margin: 0px 0 0;
+          .bg(hsl(200, 30%, 30%)); border: .5px solid @W4; .bora(4px); .hand();
+          .time {.font(15px, 700); .noMouse(); z-index: 1;
+            color: @W; text-shadow: 0 0 1px @B, 0 0 2px @B, 0 0 4px @B;}
+          .curr {.absLT(50%, -11px); transform: translateX(-50%); color: #ffb;}
+          .dur {.absRT(2px, -11px);};
+          &::after, &::before {content: ''; .noMouse();}
+          &::after {.absLT(0); .wihi(var(--prog), 100%); .bora(4px); .bg(@W75);}
+          &::before {.absLT(var(--in, 0), 35%); .wihi(var(--inout), 30%); .bora(4px);
+            .bg(var(--loop, @T)); z-index: 1;}  
+        }
+      }
+    }
+    .src-stage {.relLT(0); margin: 0px 0 -1px;
+      //8#c00 PFUJ
+      min-height:55px;}
+  }
+}
+
+audio{.wihi(240px, 28px);}// filter: invert(1) contrast(.6);}
+audio::-webkit-media-controls-panel {color: black; background: #fc9;}
+
+//8#b6c -------- Mixer / Players / Fader ----------
+.frameBg(@hue) {.bg(linear-gradient(157deg, hsl(@hue, 60%, 55%), hsl(@hue, 60%, 15%)));}
+.relinblk {.rel(); .inBlk(); .vTop();}
+.bfx-syncbar { .txtCent(); display: table; margin: auto;}
+
+//8#6a7 ------- Input selectors ----------
+.input-selector {.rel(); .wihi(100%, 20px); padding: 1px 0 2px; .bora(8px);
+  .input-selbg {.absLT(0,0); right: 0; bottom: 0; .bg(hsla(0, 50%, 50%, .6)); .bora(8px);}
+   .txtCent(); .backBlur(2px);
+  .input-label {.relLT(0,0); .inBlk(); color: #ccc; padding: 3px 4px 0 0;}
+  .input-cmd.bee-cmd {.cb(@W8, @B1); border: 1px solid @W5;  .textShade(@W5);   
+    @yell: hsl(55, 100%, 50%);
+    @yellin: fade(@yell, 40%);
+    @yellout: fade(@yell, 70%);
+    &[state="active"] {color: @B;
+      text-shadow: 0 0 1px @B, 0 0 2px @B4, 0 0 3px @yell, 0 0 6px @yell;
+      .bg(radial-gradient(@yellin 10%, @yellout 70%));} //override
+    &[state="on"] {.cb(@yell, @B4);} //override
+    &[state="off"] {.cb(@W4, @T); .noMouse();} //override
+    &[sourceix="0"] {filter: saturate(0) brightness(1.1);}
+  }
+}
+//8#97e ----------------------- Stages -----------------------------
+.bfx-mid {.rel(); display: table; margin: auto; margin-top: 0px;}
+.bfx-stage {.rel(); .tabCell(); margin: 2px; padding: 0 1px 182px; .vTop(); .bora(10px);}
+.bfx-stage.noendspectrum {padding-bottom: 57px;}
+.bfx-stage.sourcestage {padding-bottom: 0px;}
+
+body {//8#b3d------------------- Stage coloring -------
+  --sat1mod: 0%;
+  --sat2mod: -20%;
+  --lit1mod: -5%;
+  --lit2mod: -10%;
+}
+.colorize(@hue, @sat1, @lit1, @sat2, @lit2) {
+  .gr-scope, .gr-sampleGraph, .gr-spectrogram, .huerot {filter: hue-rotate(@hue);}
+  --hue: @hue - 20deg;
+  --sat1: ~"calc(@{sat1} + var(--sat1mod))";
+  --lit1: ~"calc(@{lit1} + var(--lit1mod))";
+  --sat2: ~"calc(@{sat2} + var(--sat2mod))";
+  --lit2: ~"calc(@{lit2} + var(--lit2mod))";
+  .bfx-rama {.bg(linear-gradient(157deg, 
+    ~"hsl(var(--hue), var(--sat1), var(--lit1))", 
+    ~"hsl(var(--hue), var(--sat2), var(--lit2))"
+    ));}
+}
+.bfx-st-A {--stage: 'A'; .bg(@B2); .colorize(130deg, 60%, 80%, 60%, 42%);}
+.bfx-st-B {--stage: 'B'; .bg(@B2); .colorize(220deg, 75%, 85%, 75%, 55%);}
+.bfx-st-C {--stage: 'C'; .bg(@B2); .colorize(60deg, 60%, 80%, 60%, 45%);}
+.bfx-st-D {--stage: 'D'; .bg(@B2); .colorize(20deg, 70%, 80%, 70%, 50%);}
+
+.bfx-st-E {--stage: 'E'; .bg(@B2); .colorize(90deg, 60%, 80%, 60%, 45%);}
+.bfx-st-F {--stage: 'F'; .bg(@B2); .colorize(210deg, 60%, 80%, 60%, 45%);}
+.bfx-st-G {--stage: 'G'; .bg(@B2); .colorize(45deg, 60%, 85%, 55%, 60%);}
+.bfx-st-H {--stage: 'H'; .bg(@B2); .colorize(310deg, 65%, 80%, 65%, 50%);}
+
+.bfx-st-I {--stage: 'I'; .bg(@B2); .colorize(180deg, 70%, 75%, 70%, 50%);}
+.bfx-st-J {--stage: 'J'; .bg(@B2); .colorize(250deg, 75%, 85%, 75%, 60%);}
+.bfx-st-K {--stage: 'K'; .bg(@B2); .colorize(150deg, 5%, 85%, 5%, 60%);}
+.bfx-st-L {--stage: 'L'; .bg(@B2); .colorize(30deg, 60%, 85%, 55%, 60%);}
+
+//.bfx-st-L {--stage: 'L'; .bg(@B2); .colorize(280deg, 75%, 85%, 75%, 60%);}
+.bfx-st-M {--stage: 'M'; .bg(@B2); .colorize(340deg, 60%, 80%, 55%, 60%);} //ex-pink 4
+
+.bfx-stage.sourcestage {--stage: 'S'; .bg(@B2); .colorize(150deg, 5%, 85%, 5%, 50%);}
+
+.led-fx {width: 16px; height: 16px;
+  --ledlite: ~"hsl(var(--ledhue, 120), 80%, 50%)";
+  --ledmid: ~"hsl(var(--ledhue, 120), 80%, 40%)";
+  --leddark: ~"hsl(var(--ledhue, 120), 80%, 30%)";
+}
+.led-fx.bright {
+  --ledlite: ~"hsl(var(--ledhue, 120), 80%, 70%)";
+  --ledmid: ~"hsl(var(--ledhue, 120), 80%, 50%)";
+  --leddark: ~"hsl(var(--ledhue, 120), 80%, 30%)";
+}
+.led-fx::before, .led-fx::after {.absLT(4px); .wihi(9px); .bora(50%);}
+.led-fx::before {content: ''; border: 1px solid #333; background: #181818;}
+.led-fx::after {content: ''; 
+  background: radial-gradient(var(--ledlite) 40%, var(--leddark) 70%);
+  animation: light var(--pulseperiod, 1s) infinite alternate
+    cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  border: none;//1px solid transparent;
+  margin: 1px; padding: 0px;
+  box-shadow: 0 0 4px 1px var(--ledmid), inset 0 0 2px 1px var(--ledmid);
+}
+.led-fx.animated {will-change: opacity;}
+.led-fx.no-dark::before {opacity: 0}
+.led-fx.dim {filter: brightness(.5);}
+.led-fx.half-dark::before {opacity: 0.7}
+.led-fx.fix-on:after {animation: none; will-change: auto;}
+.led-fx.fix-off:after {animation: none; will-change: auto; opacity: 0;}
+.led-fx.alt-pulse:after {animation-timing-function: cubic-bezier(1, 0.2, 0.5, 0.8);}
+.led-fx.wide-pulse:after { animation-timing-function: cubic-bezier(.28,.22,0,1.11);}
+.led-fx.flicker:after { animation-name: light-flicker; }
+.led-fx.narrow-pulse:after { animation-timing-function: cubic-bezier(1,0,.87,1.17);}
+
+@keyframes light {from {opacity: 0;} to {opacity: 1;}}
+@keyframes light-flicker {from {opacity: 0.5;} to {opacity: 1;}}
+

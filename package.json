@@ -1,0 +1,6 @@
+{
+  "name": "beefxt",
+  "devDependencies": {
+    "standard": "*"
+  }
+}

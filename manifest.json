@@ -1,0 +1,59 @@
+{
+  "name": "beeFx Chrome Extension",
+  "version": "0.01.001",
+  "description": "beeFx audio effect library extension for Youtube",
+  "manifest_version": 2,
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "externally_connectable": {
+    "matches": ["*://*.youtube.com/*"]
+  },
+  "background": {
+    "persistent": true,
+    "page": "extension/bfx-bg.html" 
+  },
+  "browser_action": {
+    "default_icon": "icons/icon48.png",
+    "default_popup": "extension/bfx-popup.html"
+  },
+  "content_scripts": [ {
+    "css": [ 
+    ],
+    "js": [ 
+      "js/youtube/beefxt-loader.js"
+    ],
+    "matches": [ "https://*.youtube.com/*" ],
+    "exclude_matches": [ "https://*.youtube.com/embed/*" ],
+    "exclude_matches": [ "https://*.youtube.com/tv*" ],
+    "run_at": "document_start"
+  } ],
+  "content_security_policy": "script-src 'self' https://beefx.mork.work; object-src 'self'",
+  "icons": {
+    "128": "icons/icon128.png",
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png"
+  },
+  "permissions": [
+    "notifications",
+    "activeTab",
+    "tabs",
+    "storage",
+    "tabs",
+    "activeTab",
+    "unlimitedStorage",
+    "idle",
+    "chrome://favicon/",
+    "contextMenus",
+    "\u003Call_urls>",
+    "identity",
+    "management", 
+    "webNavigation", 
+    "webRequest", 
+    "webRequestBlocking", 
+    "clipboardWrite", 
+    "cookies"
+  ],
+   "web_accessible_resources": [ 
+     "js/youtube/bfxt-main-esm.js"
+   ]
+}
